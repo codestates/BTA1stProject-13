@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Home from "./Home";
 import Layout from "./Layout";
-import { getStoredOptions } from "../utils/storage";
+import { getPublicKey } from "../utils/storage";
 import { useInput } from "../hooks/useInput";
 
 const tx = (fromAddress, amount, symbol, key) => {
@@ -70,7 +70,7 @@ const Transaction = () => {
   };
 
   useEffect(() => {
-    getStoredOptions().then((res) => {
+    getPublicKey().then((res) => {
       setSendAddress(res);
     });
   }, []);

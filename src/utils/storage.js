@@ -1,7 +1,7 @@
 /*global chrome*/
 
-export function setStoredOptions(myPublicKey) {
-  const publicKey = myPublicKey;
+export function setPublicKey(key) {
+  const publicKey = key;
   chrome.storage.sync.set(
     {
       publicKey,
@@ -12,10 +12,30 @@ export function setStoredOptions(myPublicKey) {
   );
 }
 
-export function getStoredOptions() {
+export function getPublicKey() {
   return new Promise((resolve) => {
     chrome.storage.sync.get("publicKey", (res) => {
       resolve(res.publicKey);
+    });
+  });
+}
+
+export function setPrivateKey(key) {
+  const privateKey = key;
+  chrome.storage.sync.set(
+    {
+      privateKey,
+    },
+    () => {
+      console.log("OK!");
+    }
+  );
+}
+
+export function getPrivateKey() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get("privateKey", (res) => {
+      resolve(res.privateKey);
     });
   });
 }
@@ -36,6 +56,29 @@ export function getStoredCheck() {
   return new Promise((resolve) => {
     chrome.storage.sync.get("check", (res) => {
       resolve(res.check);
+    });
+  });
+}
+
+export function setPassword(pwd) {
+  const password = pwd;
+
+  return new Promise((resolve) => {
+    chrome.storage.sync.set(
+      {
+        password,
+      },
+      () => {
+        resolve(true);
+      }
+    );
+  });
+}
+
+export function getPassword() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get("password", (res) => {
+      resolve(res.password);
     });
   });
 }

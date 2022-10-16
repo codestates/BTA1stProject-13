@@ -13,6 +13,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useInput } from "../../hooks/useInput";
 import Main from "../Main";
 import Mnemonic from "./Mnemonic";
+import { setPassword } from "../../utils/storage";
 
 const CreatePage = () => {
   const [password, onChangePassword] = useInput("");
@@ -39,12 +40,18 @@ const CreatePage = () => {
 
   const onClickSubmit = () => {
     setCheck(false);
+    if (!password) {
+      setCheck(true);
+    }
     if (password !== pwdCheck) {
       setCheck(true);
     }
-    console.log(password);
-    console.log(pwdCheck);
-    goTo(Mnemonic);
+
+    setPassword().then((res) => {
+      if (res) {
+        goTo(Mnemonic);
+      }
+    });
   };
 
   return (

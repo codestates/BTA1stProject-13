@@ -4,7 +4,7 @@ import Axios from "axios";
 import Button from "@mui/material/Button";
 import Layout from "./Layout";
 import Transaction from "./Transaction";
-import { getStoredOptions } from "../utils/storage";
+import { getPublicKey } from "../utils/storage";
 
 const Home = () => {
   const [balance, setBalance] = useState();
@@ -25,7 +25,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getStoredOptions().then((res) => {
+    getPublicKey().then((res) => {
       setMyAddress(res);
       setViewAddress(res.substr(0, 8));
     });
