@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { Link } from "react-chrome-extension-router";
 import Home from "./Home";
+import CreatePage from "./wallet/CreatePage";
 
 const Main = () => {
   return (
@@ -14,7 +15,7 @@ const Main = () => {
           <Button variant="contained">지갑 가져오기</Button>
         </Link>
         <h4>네 처음입니다</h4>
-        <Link component={Home} style={{ textDecoration: "none" }}>
+        <Link component={CreatePage} style={{ textDecoration: "none" }}>
           <Button variant="contained">지갑 생성</Button>
         </Link>
       </div>

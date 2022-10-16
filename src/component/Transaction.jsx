@@ -99,11 +99,20 @@ const Transaction = () => {
   return (
     <>
       <Layout>
-        <div style={{ marginTop: "16px" }}>
+        <div style={{ marginTop: "16px", position: "relative" }}>
           <Link component={Home}>
-            <ArrowBackIcon style={{ width: "16px" }} />
+            <ArrowBackIcon style={{ width: "16px", marginLeft: "30px" }} />
           </Link>
-          <span style={{ fontSize: "16px" }}>보내기</span>
+          <span
+            style={{
+              fontSize: "20px",
+              position: "absolute",
+              left: "150px",
+              fontWeight: "bolder",
+            }}
+          >
+            보내기
+          </span>
           <hr style={{ marginTop: "17px", backgroundColor: "#dada" }} />
         </div>
         <div style={{ textAlign: "center", marginTop: "15px" }}>
