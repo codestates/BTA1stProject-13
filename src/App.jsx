@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
 import { Router } from "react-chrome-extension-router";
-import Home from "./component/Home";
+import Main from "./component/Main";
 
 const App = () => {
   return (
     <Router>
-      <Home />
+      <Main />
     </Router>
   );
 };

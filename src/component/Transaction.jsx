@@ -21,7 +21,7 @@ const tx = (fromAddress, amount) => {
     from: new Neon.wallet.Account(privateKey),
     to: fromAddress,
     decimalAmt: Number(amount),
-    contractHash: Neon.CONST.NATIVE_CONTRACT_HASH.NeoToken,
+    contractHash: Neon.CONST.NATIVE_CONTRACT_HASH.NeoToken, // gas 도 추가
   };
 
   const signingConfig = {
@@ -36,7 +36,7 @@ const tx = (fromAddress, amount) => {
     .catch((err) => console.log(err));
 };
 
-const Page = () => {
+const Transaction = () => {
   const [balance, setBalance] = useState();
   const [sendAddress, setSendAddress] = useState(
     "NSVYhGZYpyHDuyeHuuzLiNhXbbdS1imdHa"
@@ -163,4 +163,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Transaction;
