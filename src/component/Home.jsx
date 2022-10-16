@@ -4,10 +4,12 @@ import Axios from "axios";
 import Button from "@mui/material/Button";
 import Layout from "./Layout";
 import Transaction from "./Transaction";
+import { getStoredOptions } from "../utils/storage";
 
 const Home = () => {
   const [balance, setBalance] = useState();
-  const [myAddress, setMyAddress] = useState("NSVYhGZ..."); // NSVYhGZYpyHDuyeHuuzLiNhXbbdS1imdHa
+  const [myAddress, setMyAddress] = useState("...");
+  const [viewAddress, setViewAddress] = useState("...");
   const [neoAmount, setNeoAmount] = useState(0);
   const [gasAmount, setGasAmount] = useState(0);
 
@@ -15,7 +17,7 @@ const Home = () => {
     let result = await Axios.post("http://localhost:50012", {
       jsonrpc: "2.0",
       method: "getnep17balances",
-      params: ["NSVYhGZYpyHDuyeHuuzLiNhXbbdS1imdHa"],
+      params: [myAddress],
       id: 1,
     });
 
@@ -23,8 +25,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    checkBalance();
+    getStoredOptions().then((res) => {
+      setMyAddress(res);
+      setViewAddress(res.substr(0, 8));
+    });
   }, []);
+
+  useEffect(() => {
+    checkBalance();
+  }, [myAddress]);
 
   useEffect(() => {
     if (balance) {
@@ -35,7 +44,7 @@ const Home = () => {
             setNeoAmount(array[i].amount);
             break;
           case "GAS":
-            setGasAmount(array[i].amount);
+            setGasAmount(array[i].amount / 100000000);
             break;
           default:
             break;
@@ -65,7 +74,7 @@ const Home = () => {
                 Account 1
               </span>
               <span style={{ fontSize: "16px", marginRight: "20px" }}>
-                {myAddress}
+                {viewAddress}...
               </span>
             </span>
             <hr style={{ marginTop: "20px", backgroundColor: "#dada" }} />

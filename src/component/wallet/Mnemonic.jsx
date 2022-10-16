@@ -1,23 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, goTo } from "react-chrome-extension-router";
+import { utils } from "ethers";
+import * as Neon from "@cityofzion/neon-js";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LockIcon from "@mui/icons-material/Lock";
 import { Button } from "@mui/material";
 import CreatePage from "./CreatePage";
 import Home from "../Home";
+import { setStoredCheck, setStoredOptions } from "../../utils/storage";
 
 const Mnemonic = () => {
   const [showMnemonic, setShowMnemonic] = useState(false);
   const [showSummitBtn, setShowSummitBtn] = useState(true);
+  const [mnemonic, setMnemonic] = useState("");
 
-  useEffect(() => {}, []);
+  const createMnemonic = () => {
+    let mnemonicCode = utils.entropyToMnemonic(utils.randomBytes(16));
+    const wallet = utils.HDNode.fromMnemonic(mnemonicCode, "1234");
+
+    // 시간 남으면
+    // const array = mnemonicCode.split(" ");
+    // console.log(array);
+
+    setMnemonic(mnemonicCode);
+    const myPrivateKey = wallet.privateKey.substr(2);
+    const myPublicKey = new Neon.wallet.Account(myPrivateKey);
+    console.log(myPublicKey.address);
+
+    setStoredOptions(myPublicKey.address);
+  };
 
   const handleClickShowMnemonic = () => {
+    if (mnemonic === "") {
+      createMnemonic();
+    }
     setShowSummitBtn(false);
     setShowMnemonic(!showMnemonic);
   };
 
   const onClickSubmit = () => {
+    setStoredCheck(true);
     goTo(Home);
   };
 
@@ -52,7 +74,7 @@ const Mnemonic = () => {
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
                 {showMnemonic ? (
-                  <>니모닉</>
+                  <>{mnemonic}</>
                 ) : (
                   <>
                     <LockIcon />

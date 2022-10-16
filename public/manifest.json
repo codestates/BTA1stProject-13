@@ -1,14 +1,24 @@
 {
   "manifest_version": 3,
   "name": "React Extensions",
-  "description": "Chrome Extension in React!",
+  "description": "React!",
   "version": "1.0.0",
+  "icons": {
+    "16": "neomain.png",
+    "48": "neomain.png",
+    "128": "neomain.png"
+  },
   "action": {
+    "default_icon": {
+      "16": "neomain.png",
+      "48": "neomain.png",
+      "128": "neomain.png"
+    },
     "default_popup": "index.html",
     "default_title": "React Extension"
   },
-  "permissions": ["storage"],
-  "background": {
-    "service_worker": "background.js"
-  }
+  "permissions": ["storage"]
+  // "background": {
+  //   "service_worker": "background.js"
+  // }
 }
