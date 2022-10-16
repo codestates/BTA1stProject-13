@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-chrome-extension-router";
+import Axios from "axios";
+import Button from "@mui/material/Button";
 import Layout from "./Layout";
 import Page from "./Page";
-import Button from "@mui/material/Button";
-import Axios from "axios";
 
 const Home = () => {
   const [balance, setBalance] = useState();
-  const [myAddress, setMyAddress] = useState("NNWmHw..."); // NNWmHwuDsAzozvE2NmPnu5krmorVGqgVKs
+  const [myAddress, setMyAddress] = useState("NSVYhGZ..."); // NSVYhGZYpyHDuyeHuuzLiNhXbbdS1imdHa
   const [neoAmount, setNeoAmount] = useState(0);
   const [gasAmount, setGasAmount] = useState(0);
 
   const checkBalance = async () => {
-    let tt = await Axios.post("http://localhost:50012", {
+    let result = await Axios.post("http://localhost:50012", {
       jsonrpc: "2.0",
       method: "getnep17balances",
-      params: ["NNWmHwuDsAzozvE2NmPnu5krmorVGqgVKs"],
+      params: ["NSVYhGZYpyHDuyeHuuzLiNhXbbdS1imdHa"],
       id: 1,
     });
 
-    console.log(tt.data.result);
-    setBalance(tt.data.result);
+    setBalance(result.data.result);
   };
 
   useEffect(() => {
