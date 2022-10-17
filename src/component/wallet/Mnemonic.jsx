@@ -24,10 +24,6 @@ const Mnemonic = () => {
     let mnemonicCode = utils.entropyToMnemonic(utils.randomBytes(16));
     const wallet = utils.HDNode.fromMnemonic(mnemonicCode, pwd);
 
-    // 시간 남으면
-    // const array = mnemonicCode.split(" ");
-    // console.log(array);
-
     setMnemonic(mnemonicCode);
     const myPrivateKey = wallet.privateKey.substr(2);
     const myPublicKey = new Neon.wallet.Account(myPrivateKey);

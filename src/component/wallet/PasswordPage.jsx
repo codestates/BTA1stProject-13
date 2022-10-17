@@ -12,10 +12,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useInput } from "../../hooks/useInput";
 import Main from "../Main";
-import Mnemonic from "./Mnemonic";
 import { setPassword } from "../../utils/storage";
+import CheckMnemonic from "./CheckMnemonic";
 
-const CreatePage = () => {
+const PasswordPage = () => {
   const [password, onChangePassword] = useInput("");
   const [pwdCheck, onChangePwdCheck] = useInput("");
   const [showPassword, setShowPassword] = useState(false);
@@ -51,7 +51,7 @@ const CreatePage = () => {
 
     setPassword().then((res) => {
       if (res) {
-        goTo(Mnemonic);
+        goTo(CheckMnemonic);
       }
     });
   };
@@ -138,4 +138,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default PasswordPage;

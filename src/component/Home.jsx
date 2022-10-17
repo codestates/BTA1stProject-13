@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-chrome-extension-router";
+import copy from "copy-text-to-clipboard";
 import Axios from "axios";
 import Button from "@mui/material/Button";
 import Layout from "./Layout";
@@ -53,6 +54,10 @@ const Home = () => {
     }
   }, [balance]);
 
+  const copyFunction = () => {
+    copy(myAddress);
+  };
+
   return (
     <>
       <Layout>
@@ -73,7 +78,14 @@ const Home = () => {
               >
                 Account 1
               </span>
-              <span style={{ fontSize: "16px", marginRight: "20px" }}>
+              <span
+                onClick={copyFunction}
+                style={{
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  marginRight: "20px",
+                }}
+              >
                 {viewAddress}...
               </span>
             </span>
