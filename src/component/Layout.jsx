@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import { goTo } from "react-chrome-extension-router";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -6,8 +7,35 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import { getLogin, setLogin } from "../utils/storage";
+import LoginPage from "./LoginPage";
 
 const Layout = ({ children }) => {
+  const [anchorEl, setAnchorEl] = useState();
+  const [first, setFirst] = useState(false);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const onClickLogout = () => {
+    setLogin(true);
+    setFirst(true);
+  };
+
+  useEffect(() => {
+    getLogin().then((res) => {
+      if (res) {
+        goTo(LoginPage);
+      }
+    });
+  }, [first]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -37,11 +65,28 @@ const Layout = ({ children }) => {
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={() => {}}
+            onClick={handleMenu}
             color="inherit"
           >
             <AccountCircle />
           </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+          </Menu>
         </div>
       </AppBar>
       {children}

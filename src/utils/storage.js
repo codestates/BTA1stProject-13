@@ -82,3 +82,23 @@ export function getPassword() {
     });
   });
 }
+
+export function setLogin(bool) {
+  const LoginCheck = bool;
+  chrome.storage.sync.set(
+    {
+      LoginCheck,
+    },
+    () => {
+      console.log(bool);
+    }
+  );
+}
+
+export function getLogin() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get("LoginCheck", (res) => {
+      resolve(res.LoginCheck);
+    });
+  });
+}
